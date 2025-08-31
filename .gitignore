@@ -12,3 +12,6 @@ myenv/
 .dvc/cache
 .vscode/
 .idea/
+
+*.json
+.env
