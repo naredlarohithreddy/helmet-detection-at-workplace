@@ -22,3 +22,4 @@ myenv/
 
 /data/interim_labels
 /data/raw
+/data/processed
