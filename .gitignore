@@ -15,3 +15,10 @@ myenv/
 
 *.json
 .env
+
+/runs
+
+/*.pt
+
+/data/interim_labels
+/data/raw
