@@ -3,5 +3,5 @@ train: images/train
 val: images/val
 test: images/test
 
-nc: 3
-names: ['helmet', 'head', 'person']
+nc: 2
+names: ['helmet', 'head']

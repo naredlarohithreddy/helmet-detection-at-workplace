@@ -5,9 +5,9 @@ import glob
 
 CLASS_MAPPING = {
     'helmet': 0,
-    'head': 1,
-    'person': 2
+    'head': 1
 }
+
 
 OUTPUT_DIR = '../data/interim_labels'
 
