@@ -1,0 +1,36 @@
+# Git and DVC internals
+.git
+.dvc/cache
+
+# Python virtual environment
+venv
+.venv
+myenv
+
+# Python caches
+__pycache__
+*.pyc
+.coverage
+
+README.md
+
+# Node.js dependencies (will be installed inside the container)
+frontend/node_modules
+
+# IDE and OS files
+.vscode
+.idea
+.DS_Store
+
+# Generated artifacts (already ignored by git)
+data/
+runs/
+mlruns/
+
+.env
+
+# Large model files (keep only the .dvc tracking files)
+*.pt
+!models/*.dvc
+!models/*.pt
+EOF

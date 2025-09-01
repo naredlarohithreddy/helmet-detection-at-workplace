@@ -6,6 +6,15 @@ from pathlib import Path
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from ultralytics import YOLO
+import torch
+
+original_torch_load = torch.load
+
+def patched_torch_load(f, map_location=None, pickle_module=None, weights_only=None, **kwargs):
+    return original_torch_load(f, map_location=map_location, pickle_module=pickle_module, weights_only=False, **kwargs)
+
+torch.load = patched_torch_load
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MODEL_PATH = PROJECT_ROOT / "models/best_v4.pt"
@@ -27,6 +36,7 @@ app.add_middleware(
 )
 
 try:
+
     model = YOLO(MODEL_PATH)
     print(f"Model loaded successfully from: {MODEL_PATH}")
 except Exception as e:

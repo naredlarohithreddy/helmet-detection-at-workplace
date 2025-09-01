@@ -17,5 +17,8 @@ dependencies = [
     "scikit-learn>=1.7.1",
     "tqdm>=4.67.1",
     "ultralytics>=8.3.188",
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "python-multipart>=0.0.6"
 ]
 

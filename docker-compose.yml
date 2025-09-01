@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app # Mounts local code for development hot-reloading (optional)
+    container_name: hardhat_backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80" # Map local port 5173 to the container's port 80
+    depends_on:
+      - backend
+    container_name: hardhat_frontend
