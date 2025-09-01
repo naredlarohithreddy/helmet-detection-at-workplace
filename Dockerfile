@@ -18,7 +18,7 @@ RUN uv pip sync --system --no-cache pyproject.toml && \
     pip install --no-cache-dir colorama && \
     pip install dvc[all] --no-deps --force-reinstall
 
-COPY models/best_v4.pt.dvc models/
+COPY models/best_v4.pt models/
 COPY . .
 
 RUN groupadd -r appuser && useradd -r -g appuser appuser && \
