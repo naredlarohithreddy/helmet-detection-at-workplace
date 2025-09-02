@@ -60,7 +60,7 @@ function App() {
     formData.append('file', file);
 
     try { 
-      const apiUrl = "https://hardhat-detection.onrender.com";
+      const apiUrl = "https://hardhat-detection-backend.onrender.com";
       const response = await fetch(`${apiUrl}/predict`, {
         method: "POST",
         body: formData,
