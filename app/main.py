@@ -24,7 +24,8 @@ app = FastAPI(title="Hard Hat Detection API")
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://hardhat-detection.onrender.com"
 ]
 
 app.add_middleware(
@@ -58,7 +59,79 @@ async def predict(file: UploadFile = File(...)):
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
     results = model(image)
-    annotated_image = results[0].plot()
+
+    annotated_image = image.copy()
+    
+    line_thickness = 3
+    font_scale = 0.6
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    text_thickness = 2
+    used_positions = []
+
+    for box in results[0].boxes:
+
+        x1, y1, x2, y2 = map(int, box.xyxy[0])
+        confidence = box.conf[0]
+        class_id = int(box.cls[0])
+        class_name = model.names[class_id]
+        
+        color = (0, 255, 0) if class_name == 'helmet' else (0, 0, 255)
+        cv2.rectangle(annotated_image, (x1, y1), (x2, y2), color, line_thickness)
+        label = f"{class_name}: {confidence:.2f}"
+        
+        (text_width, text_height), _ = cv2.getTextSize(label, font, font_scale, text_thickness)
+
+        def find_non_overlapping_position(x1, y1, text_width, text_height, used_positions):
+            positions_to_try = [
+                (x1, y1 - text_height - 15),
+                (x1, y2 + text_height + 5), 
+                (x2 + 5, y1),              
+                (x1 - text_width - 5, y1), 
+                (x1, y1 + text_height + 5),
+            ]
+            
+            for pos_x, pos_y in positions_to_try:
+                # Check boundaries
+                if pos_x < 0 or pos_y < 0:
+                    continue
+                if pos_x + text_width > annotated_image.shape[1]:
+                    continue
+                if pos_y > annotated_image.shape[0]:
+                    continue
+                
+                # Check overlap with existing labels
+                new_rect = (pos_x, pos_y, pos_x + text_width, pos_y + text_height)
+                
+                overlap = False
+                for used_rect in used_positions:
+                    if (new_rect[0] < used_rect[2] and new_rect[2] > used_rect[0] and
+                        new_rect[1] < used_rect[3] and new_rect[3] > used_rect[1]):
+                        overlap = True
+                        break
+                
+                if not overlap:
+                    return pos_x, pos_y
+            
+            # If all positions overlap, use default
+            return x1, y1 - text_height - 15
+        
+        # Find best position for label
+        label_x, label_y = find_non_overlapping_position(x1, y1, text_width, text_height, used_positions)
+        
+        # Draw label background
+        bg_x1 = label_x
+        bg_y1 = label_y
+        bg_x2 = label_x + text_width + 10
+        bg_y2 = label_y + text_height + 5
+        
+        cv2.rectangle(annotated_image, (bg_x1, bg_y1), (bg_x2, bg_y2), color, -1)
+        
+        # Draw white text
+        cv2.putText(annotated_image, label, (label_x + 5, label_y + text_height), 
+                   font, font_scale, (255, 255, 255), text_thickness)
+        
+        # Store this label position
+        used_positions.append((bg_x1, bg_y1, bg_x2, bg_y2))
 
     _, buffer = cv2.imencode('.jpg', annotated_image)
     image_base64 = base64.b64encode(buffer).decode('utf-8')
