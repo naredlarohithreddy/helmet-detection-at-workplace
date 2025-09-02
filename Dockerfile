@@ -15,7 +15,7 @@ RUN uv pip sync --system --no-cache pyproject.toml && \
     pip install --no-cache-dir colorama && \
     pip install dvc[all] --no-deps --force-reinstall && \
     pip install "dvc[s3]" && \
-    pip install "uvicorn[standard]" h11
+    pip install "uvicorn[standard]" h11 numpy
 
 RUN pip install "dvc[s3]"
 
