@@ -32,7 +32,7 @@ jobs:
 
     - name: Pull DVC files
       run: |
-        dvc pull models/best_v4.pt.dvc
+        dvc pull models/best_yolo12s.pt.dvc
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.BACKBLAZE_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.BACKBLAZE_SECRET_ACCESS_KEY }}

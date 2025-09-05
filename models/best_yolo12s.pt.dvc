@@ -1,0 +1,5 @@
+outs:
+- md5: 308828e4f8e0365d4e7e28f101faefe4
+  size: 18898074
+  hash: md5
+  path: best_yolo12s.pt

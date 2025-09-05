@@ -61,6 +61,7 @@ function App() {
 
     try { 
       const apiUrl = "https://hardhat-detection-backend.onrender.com";
+      // const apiUrl = 'http://127.0.0.1:8000';
       const response = await fetch(`${apiUrl}/predict`, {
         method: "POST",
         body: formData,

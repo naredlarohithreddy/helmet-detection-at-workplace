@@ -17,7 +17,7 @@ torch.load = patched_torch_load
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-MODEL_PATH = PROJECT_ROOT / "models/best_v4.pt"
+MODEL_PATH = PROJECT_ROOT / "models/best_yolo12s.pt"
 
 app = FastAPI(title="Hard Hat Detection API")
 
@@ -55,13 +55,14 @@ async def predict(file: UploadFile = File(...)):
         return {"error": "Model is not loaded."}
 
     contents = await file.read()
+
+    
     image_array = np.frombuffer(contents, dtype=np.uint8)
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
     results = model(image)
-
     annotated_image = image.copy()
-    
+
     line_thickness = 3
     font_scale = 0.6
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -70,6 +71,7 @@ async def predict(file: UploadFile = File(...)):
 
     for box in results[0].boxes:
 
+        print(box)
         x1, y1, x2, y2 = map(int, box.xyxy[0])
         confidence = box.conf[0]
         class_id = int(box.cls[0])

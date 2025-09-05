@@ -1,8 +1,8 @@
 train:
-  model_version: yolov8s.pt
+  model_version: yolo12s.pt
   data_config: helmet_detection_at_workplace.yaml
   epochs: 25
   batch_size: 16
   img_Size: 416
-  experiment_name : yolov8n_25_epochs_run_4
-  run_name: yolov8n_25_epochs_run_4
+  experiment_name : yolo12s_25_epochs_run_4
+  run_name: yolo12s_25_epochs_run_4
