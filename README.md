@@ -1,6 +1,6 @@
 A complete, end-to-end MLOps project demonstrating a full-stack system for real-time workplace safety monitoring. This application uses a fine-tuned YOLOv8 and YOLOv12 model to detect PPE (Hard Hats), is served via a FastAPI backend and a React frontend, containerized with Docker, and features a fully automated CI/CD pipeline for deployment.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Problem Statement](#-problem-statement)
 - [ML Experimentation & Model Selection](#-ml-experimentation--model-selection)
@@ -13,7 +13,7 @@ A complete, end-to-end MLOps project demonstrating a full-stack system for real-
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 In industrial environments such as construction sites, worker safety is paramount. A key piece of Personal Protective Equipment (PPE) is the hard hat. Manually monitoring a large worksite to ensure every individual is wearing a hard hat is inefficient, prone to human error, and not scalable.
 
@@ -21,7 +21,7 @@ This project aims to solve this problem by creating an automated system that can
 
 ---
 
-## 🔬 ML Experimentation & Model Selection
+## ML Experimentation & Model Selection
 
 A core part of this project was to not just train a model, but to select the *right* model by balancing performance with operational requirements like inference speed.
 
@@ -42,8 +42,8 @@ Several YOLOv8 model variants were trained and evaluated to find the optimal arc
 | `YOLOv8n` (nano) | 0.946 | 0.575 | 0.624 | 0.407 |
 | `YOLOv8s` (small) | 0.944 | 0.590 | 0.634 | 0.418 |
 | `YOLOv8m` (medium) | **0.955** | 0.590 | 0.639 | 0.421 |
-| `YOLOv12s (small) | 0.920 | 0.874 | 0.934 | 0.612 |
-| **`YOLOv12s (Final)`** | 0.920 | **0.874** | **0.935** | **0.612** |
+| `YOLOv12s` (small) | 0.920 | 0.874 | 0.934 | 0.612 |
+| **`YOLOv12s (Final)`** | **0.920** | **0.874** | **0.935** | **0.612** |
 
 *Note: `YOLOv12s (Final)` represents the `yolov12s` model after further training and optimization, which became the champion model for this project.*
 
@@ -57,7 +57,7 @@ The selection process was guided by the need for a model that could eventually b
 
 ---
 
-## 🏛️ Architecture & Tech Stack
+## Architecture & Tech Stack
 
 This project uses a modern, containerized, and decoupled full-stack architecture.
 
@@ -68,7 +68,7 @@ This project uses a modern, containerized, and decoupled full-stack architecture
 
 ---
 
-🔄 CI/CD Pipeline
+CI/CD Pipeline
 This project is configured with a complete Continuous Integration and Continuous Deployment pipeline using GitHub Actions. On every push to the main branch, the following automated workflow is triggered:
 
 The backend and frontend Docker images are built.The new images are pushed to GitHub Container Registry.
