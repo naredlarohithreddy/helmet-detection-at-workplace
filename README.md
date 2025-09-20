@@ -44,9 +44,7 @@ Several YOLO model variants were trained and evaluated to find the optimal archi
 | YOLOv8s (small) | 0.944 | 0.590 | 0.634 | 0.418 |
 | YOLOv8m (medium) | 0.955 | 0.590 | 0.639 | 0.421 |
 | YOLOv12s (small) | 0.920 | 0.874 | 0.934 | 0.612 |
-| **YOLOv12s (optimized)** | **0.920** | **0.874** | **0.935** | **0.612** |
-
-*Note: YOLOv12s (optimized) represents the YOLOv12s model after additional training epochs and hyperparameter tuning, which became the champion model for this project.*
+| **YOLOv12s (small)** | **0.920** | **0.874** | **0.934** | **0.612** |
 
 ### Final Model Choice
 
